@@ -1,0 +1,13 @@
+{% extends "userbase.html" %}
+{% block title %}ReserveSpot - Cancel Reservation{% endblock %}
+{% block content %}
+<div class="cancel-reservation-container">
+    <h2>Cancel Reservation</h2>
+    <p>Are you sure you want to cancel your reservation for {{ booking.activity.name }}?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Cancel Reservation</button>
+        <a href="{% url 'reservations' %}" class="btn btn-secondary">Back</a>
+    </form>
+</div>
+{% endblock %}

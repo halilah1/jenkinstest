@@ -1,0 +1,52 @@
+{% extends "userbase.html" %}
+{% load static %}
+{% block title %}ReserveSpot - Payment{% endblock %}
+{% block content %}
+<div class="payment-container">
+    <h2 id="payment-form-title"><b>Payment Details</b></h2>
+    <div class="reservation-content">
+        <form id="payment-form" method="POST" class="reservation-form" style="width: 100%;">
+            {% csrf_token %}
+            <div class="payment-methods">
+                <p>Select your preferred payment</p>
+                <div class="payment-method">
+                    <input type="radio" id="visa" name="payment_method" value="visa" required>
+                    <label for="visa">
+                        <img src="{% static 'images/payment/visa.png' %}" alt="Visa" class="payment-logo">
+                    </label>
+                </div>
+                <div class="payment-method">
+                    <input type="radio" id="mastercard" name="payment_method" value="mastercard" required>
+                    <label for="mastercard">
+                        <img src="{% static 'images/payment/mastercard.png' %}" alt="MasterCard" class="payment-logo">
+                    </label>
+                </div>
+                <div class="payment-method">
+                    <input type="radio" id="googlepay" name="payment_method" value="googlepay" required>
+                    <label for="googlepay">
+                        <img src="{% static 'images/payment/googlepay.png' %}" alt="Google Pay" class="payment-logo">
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" id="submit-preferred-payment-btn">Next</button> <!-- Changed button text to "Next" -->
+        </form>
+        <div class="restaurant-details">
+            <img src="{{ booking.activity.image_url }}" alt="{{ booking.activity.name }} Logo" class="restaurant-logo">
+            <div class="restaurant-info">
+                <h3>{{ booking.activity.name }} Table Booking</h3>
+                <p>{{ booking.activity.address }}</p>
+                <hr>
+                <div class="summary-item">
+                    <span class="summary-label">Subtotal</span>
+                    <span class="summary-amount" style="text-align: right;">${{ booking.total_price }}</span>
+                </div>
+                <div class="summary-item total">
+                    <span class="summary-label"><b>TOTAL TO PAY</b></span>
+                    <span class="summary-amount" style="text-align: right;"><b>${{ booking.total_price }}</b></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

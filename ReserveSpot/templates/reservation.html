@@ -1,0 +1,51 @@
+{% extends "userbase.html" %}
+{% block title %}ReserveSpot - Reservation{% endblock %}
+{% block content %}
+<div class="reservations-container">
+    <h2>Reservations</h2>
+    <div class="tabs">
+        <button class="tablinks active" onclick="openTab(event, 'Upcoming')">Upcoming</button>
+        <button class="tablinks" onclick="openTab(event, 'Past')">Past</button>
+    </div>
+    <div id="Upcoming" class="tabcontent">
+        {% if upcoming_reservations %}
+            {% for booking in upcoming_reservations %}
+                <div class="reservation-item">
+                    <img src="{{ booking.activity.image_url }}" alt="{{ booking.activity.name }} Logo" class="restaurant-logo">
+                    <div class="reservation-details">
+                        <h3>{{ booking.activity.name }} Table Booking</h3>
+                        <p>Check In: {{ booking.booking_date|date:"d M Y, g:i A" }}</p>
+                        <p>Duration: {{ booking.activity.duration }}</p>
+                        <p>Guests: {{ booking.participants }} Adults</p>
+                        <p>${{ booking.total_price }}</p>
+                    </div>
+                    <div class="reservation-actions">
+                        <a href="{% url 'cancel_reservation' booking.booking_id %}" class="cancel-btn">Cancel Reservation</a>
+                        <a href="{% url 'edit_reservation' booking.booking_id %}" class="edit-btn">Edit Reservation</a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No upcoming reservations.</p>
+        {% endif %}
+    </div>
+    <div id="Past" class="tabcontent" style="display:none;">
+        {% if past_reservations %}
+            {% for booking in past_reservations %}
+                <div class="reservation-item">
+                    <img src="{{ booking.activity.image_url }}" alt="{{ booking.activity.name }} Logo" class="restaurant-logo">
+                    <div class="reservation-details">
+                        <h3>{{ booking.activity.name }} Table Booking</h3>
+                        <p>Check In: {{ booking.booking_date|date:"d M Y, g:i A" }}</p>
+                        <p>Duration: {{ booking.activity.duration }}</p>
+                        <p>Guests: {{ booking.participants }} Adults</p>
+                        <p>${{ booking.total_price }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No past reservations.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

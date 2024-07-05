@@ -1,0 +1,39 @@
+{% extends "userbase.html" %}
+{% block title %}ReserveSpot - Edit Profile{% endblock %}
+{% block content %}
+<div class="userprofile-container grid">
+    <div class="useridentify-container">
+        <div class="useridentify-item profileimg">
+            <img src="{{ user_profile.profile_image_url }}" id="selectedAvatar" class="imgcolorchange rounded-circle" alt="Avatar" />
+            <br>
+            <div data-mdb-ripple-init class="btn btn-light rounded-pill uploadbtn">
+                <label class="form-label m-1" for="usrimg"><b>Upload a Photo</b></label>
+                <input type="file" class="form-control d-none" id="usrimg" onchange="" />
+            </div>
+        </div>
+        <br>
+        <div class="useridentify-item identinfo">
+            <h1 class="identify-title verify">Identity Verification</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+            <h1 class="identify-title usrprofilename">{{ user_profile.username }}</h1>
+            <p><i class="bi bi-check2"> {% if user_profile.is_email_verified %} Email Confirmed {% else %} Email Not Confirmed {% endif %}</i></p>
+        </div>
+    </div>
+    <div class="userinfo-container">
+        <h1 class="userinfo-title">Hello, {{ user_profile.username }}</h1>
+        <span>Joined in {{ user_profile.created_at|date:"Y" }}</span>
+        <form class="userinfo-form" action="{% url 'edit_profile' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="infobtn-container">
+                <button id="resetbtn" type="reset" class="btn infobtn rounded-pill">
+                    <i class="bi bi-x"></i> Cancel
+                </button>
+                <button id="savebtn" type="submit" class="btn btn-primary infobtn rounded-pill">Save</button>
+            </div>
+            <hr>
+        </form>
+        <button id="deactivebtn" type="button" class=" btn btn-danger infobtn rounded-pill">Deactivate Account?</button>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "userbase.html" %}
+{% block title %}ReserveSpot - Submit Review{% endblock %}
+{% block content %}
+<div class="review-container">
+    <h2>Submit Review for Booking</h2>
+    <div class="booking-details">
+        <p><strong>Restaurant:</strong> {{ booking.activity }}</p>
+        <p><strong>Date:</strong> {{ booking.booking_date }}</p>
+        <p><strong>Participants:</strong> {{ booking.participants }}</p>
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Submit Review</button>
+    </form>
+</div>
+{% endblock %}

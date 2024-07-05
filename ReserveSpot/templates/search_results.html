@@ -1,0 +1,74 @@
+{% extends "userbase.html" %}
+{% load static %}
+{% block title %}ReserveSpot - Results{% endblock %}
+{% block content %}
+<section id="results-container">
+    <h6 class="results"><p>{{ results|length }} Results Found</p></h6>
+    <div id="filter-container">
+        <div id="category-boxes" class="category-boxes">
+            <!-- Dynamic Category/Type Button -->
+            <div class="category-btn" id="category-1">
+                <span>{{ query }}</span>
+                <span class="close-btn" onclick="removeCategory('category-1')">&times;</span>
+            </div>
+            <div class="category-btn" id="category-2">
+                <span>{{ date }}</span>
+                <span class="close-btn" onclick="removeCategory('category-2')">&times;</span>
+            </div>
+        </div>
+        <div id="category-filters">
+            <!-- Filter search results Button -->
+            <button id="filterButton" class="filter-button" onclick="openFilterOptions()">
+                <img src="{% static 'images/filterBtn.png' %}" alt="Filter Icon" class="filter-icon">
+                <span>Filter</span>
+            </button>
+
+            <div id="filterOptions" class="filter-options">
+                <label>
+                    <input type="checkbox" name="sortByPriceAsc"> Sort by Price (Lowest to Highest)
+                </label>
+                <label>
+                    <input type="checkbox" name="sortByPriceDesc"> Sort by Price (Highest to Lowest)
+                </label>
+                <label>
+                    <input type="checkbox" name="sortByRatingAsc"> Sort by Rating (Lowest to Highest)
+                </label>
+                <label>
+                    <input type="checkbox" name="sortByRatingDesc"> Sort by Rating (Highest to Lowest)
+                </label>
+                <button id="filterApplyBtn" onclick="applySettings()">Apply</button>
+            </div>
+
+        </div>
+    </div>
+</section>
+<section id="display-container">
+    <section class="display-items">
+        {% for restaurant in results %}
+        <div class="restaurant-card">
+            <div class="card-item">
+                <div class="card-image">
+                    <div class="heart-icon"></div>
+                    <img class="card-rest-image" src="{{ restaurant.image_url }}" alt="{{ restaurant.name }}">
+                    <img src="{{ restaurant.image_url }}" class="icon" alt="{{ restaurant.name }}" />
+                </div>
+                <div class="card-details">
+                    <h3 class="rest-name">{{ restaurant.name }}</h3>
+                    <p class="rest-location">{{ restaurant.address }}</p>
+                    <div class="card-rating">
+                        {% for i in "0"|add:restaurant.rating|length %}
+                        <img src="{% static 'images/star.png' %}" alt="Star" />
+                        {% endfor %}
+                        <span class="rating-number">{{ restaurant.rating }}</span>
+                    </div>
+                    <p class="card-price-desc">Price: {{ restaurant.price }} | Duration: {{ restaurant.operationhours }}</p>
+                    <p class="card-description">{{ restaurant.description }}</p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>No results found</p>
+        {% endfor %}
+    </section>
+</section>
+{% endblock %}

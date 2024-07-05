@@ -1,0 +1,13 @@
+{% extends "userbase.html" %}
+{% block title %}ReserveSpot - Edit Reservation{% endblock %}
+{% block content %}
+<div class="edit-reservation-container">
+    <h2>Edit Reservation</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+        <a href="{% url 'reservations' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}
