@@ -1,3 +1,13 @@
+/*Django~=5.1a1
+psycopg2-binary>=2.8
+django-environ>=0.4.5
+environ~=1.0
+requests~=2.32.3
+six~=1.16.0
+gunicorn
+django-sslserver
+*/
+
 function removeCategory(categoryId) {
     // Remove the category box
     var categoryBox = document.getElementById(categoryId);
